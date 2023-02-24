@@ -65,7 +65,7 @@ namespace Utility
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            string[] menuOrder = new string[] { "| 1 | Register", "| 2 | Alter", "| 3 | Delete", "| 4 | Consult", "| 5 | Finish", "| 9 | Back" };
+            string[] menuOrder = new string[] { "| 1 | Create", "| 2 | Update", "| 3 | Delete", "| 4 | Search", "| 5 | Close", "| 6 | Back"};
             DateTime data = DateTime.Now;
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine($"Menu Order - {data}");
@@ -74,7 +74,7 @@ namespace Utility
             {
                 Console.WriteLine(item);
             }
-           // Console.Write("\nSelecione Opção: ");
+           Console.Write("\nOption: ");
         }
 
         public static void ShowMenuPersonal()

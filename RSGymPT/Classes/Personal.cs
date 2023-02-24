@@ -7,7 +7,7 @@ using RSGymPT.Interfaces;
 
 namespace RSGymPT.Classes
 {
-    public class Personal : Person
+    public class Personal : Person, IPersonal
     {
         #region Properties
         public string Acronym { get; set; }
@@ -21,34 +21,24 @@ namespace RSGymPT.Classes
             Mobile = "";
         }
 
-        public Personal(int id, string name, string username, string password, string acronym, string mobile) : base(id, name, username, password) 
-        { 
+        public Personal(int id, string name, string username, string password, string acronym, string mobile) : base(id, name, username, password)
+        {
             Acronym = acronym;
-            Mobile = mobile;    
+            Mobile = mobile;
         }
         #endregion
 
         #region Methods
-        public Personal[] StoragePersonal()
-        {
-            Personal[] personalData = new Personal[]
-            {
-                new Personal{ Id = 1, Acronym = "VM", Name = "Vitoria Melo", Mobile = "999999998" },
-                new Personal{ Id = 2, Acronym = "CM", Name = "Cleiber Melo", Mobile = "999999996" },
-                new Personal{ Id = 2, Acronym = "DM", Name = "Davi Melo", Mobile = "999999997" },
-            };
-            return personalData;
-        }
         public override void Search()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine(ApplicationData.LoggedUser.Name);
+            Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}");
             Console.ResetColor();
-            Personal[] storageDataPersonal = StoragePersonal();
+            Personal[] newpersonal = InMemoryData.Personal;
             Utility.Utility.WriteTitle("List Personal Trainer");
-            foreach (var item in storageDataPersonal.OrderBy(e => e.Name))
+            foreach (var item in newpersonal.OrderBy(e => e.Name))
             {
-                Console.WriteLine($"Name: {item.Name}, Acronym: {item.Acronym}, Mobile: {item.Mobile}");
+                Console.WriteLine($"Id: {item.Id} Name: {item.Name}, Acronym: {item.Acronym}, Mobile: {item.Mobile}");
             }
         }
         #endregion

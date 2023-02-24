@@ -45,11 +45,15 @@
   <ItemGroup>
     <Compile Include="Classes\ApplicationData.cs" />
     <Compile Include="Classes\Menu.cs" />
+    <Compile Include="Classes\Order.cs" />
     <Compile Include="Classes\Personal.cs" />
     <Compile Include="Classes\Starter.cs" />
     <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\InMemoryData.cs" />
     <Compile Include="Classes\User.cs" />
+    <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IPersonal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
