@@ -15,6 +15,8 @@ namespace RSGymPT.Classes
         public static Personal[] Personal { get; set; }
         #endregion
 
+        //TODO: não implementei id automatico para os users e personal trainers.
+
         #region Methods
 
             #region Initialize
@@ -29,32 +31,11 @@ namespace RSGymPT.Classes
             #region GetStorageOrder
                 private static List<Order> GetStorageOrder()
                 {
-            //Personal personal = new Personal();
-            //Order[] orderData = new Order[]
-            //{
-            //    new Order{ OrderId = 1, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 19, 09, 00, 00), Status = "Scheduled"},
-            //    new Order{ OrderId = 2, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 18, 15, 00, 00), Status = "Finished" },
-            //    new Order{ OrderId = 3, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 20, 21, 00, 00), Status = "Cancelled" },
-            //    new Order{ OrderId = 4, IdUser = 1, Acronym = "DSM", StartDate = new DateTime(2023, 4, 19, 15, 00, 00), Status = "Scheduled"},
-            //    new Order{ OrderId = 5, IdUser = 2, Acronym = "DSM", StartDate = new DateTime(2023, 4, 19, 09, 00, 00), Status = "Scheduled"},
-            //    new Order{ OrderId = 6, IdUser = 2, Acronym = "DSM", StartDate = new DateTime(2023, 3, 19, 10, 00, 00), Status = "Scheduled"},
-            //    new Order{ OrderId = 7, IdUser = 1, Acronym = "CNM", StartDate = new DateTime(2023, 3, 18, 15, 00, 00), Status = "Finished" },
-            //    new Order{ OrderId = 8, IdUser = 2, Acronym = "VSM", StartDate = new DateTime(2023, 3, 20, 21, 00, 00), Status = "Cancelled" },
-            //};
-            //return orderData;
-
-                    List<Order> orderData1 = new List<Order>
+                    List<Order> orderData = new List<Order>
                     {
-                        new Order(){ OrderId = 1, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 19, 09, 00, 00), Status = "Scheduled"},
-                        new Order(){ OrderId = 2, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 18, 15, 00, 00), Status = "Finished" },
-                        new Order(){ OrderId = 3, IdUser = 1, Acronym = "VSM", StartDate = new DateTime(2023, 3, 20, 21, 00, 00), Status = "Cancelled" },
-                        new Order(){ OrderId = 4, IdUser = 1, Acronym = "DSM", StartDate = new DateTime(2023, 4, 19, 15, 00, 00), Status = "Scheduled"},
-                        new Order(){ OrderId = 5, IdUser = 2, Acronym = "DSM", StartDate = new DateTime(2023, 4, 19, 09, 00, 00), Status = "Scheduled"},
-                        new Order(){ OrderId = 6, IdUser = 2, Acronym = "DSM", StartDate = new DateTime(2023, 3, 19, 10, 00, 00), Status = "Scheduled"},
-                        new Order(){ OrderId = 7, IdUser = 1, Acronym = "CNM", StartDate = new DateTime(2023, 3, 18, 15, 00, 00), Status = "Finished" },
-                        new Order(){ OrderId = 8, IdUser = 2, Acronym = "VSM", StartDate = new DateTime(2023, 3, 20, 21, 00, 00), Status = "Cancelled" },
+
                     };
-                     return orderData1;
+                     return orderData;
                  }
             #endregion
 

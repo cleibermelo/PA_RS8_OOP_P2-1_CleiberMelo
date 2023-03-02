@@ -10,22 +10,12 @@ namespace RSGymPT.Classes
 {
     public class User : Person
     {
-
-        #region Properties
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
         #region Methods
         public override void Search()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}");
             Console.ResetColor();
-            //User[] storageDataUser = StorageUser();
             User[] newuser = InMemoryData.Users;
             Utility.Utility.WriteTitle("List User");
             foreach (var item in newuser.OrderBy(e => e.Name))

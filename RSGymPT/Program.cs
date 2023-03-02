@@ -13,11 +13,10 @@ namespace RSGymPT
         static void Main(string[] args)
         {
             InMemoryData.Initialize();
+
             Starter starter = new Starter();
-            //Starter user2 = new Starter();
 
             starter.Login();
-            //user2.Login();
 
             Console.ReadKey();
         }

@@ -38,7 +38,6 @@ namespace Utility
             Console.WriteLine($"Welcome to RSGymPT - {data} \n");
             Console.ResetColor();
             string[] menu = new string[] { "| 0 | Login\n", "| 9 | Exit"};
-            //Console.WriteLine($"Login:\n");
             foreach (var item in menu)
             {
                 Console.WriteLine(item);
@@ -59,13 +58,12 @@ namespace Utility
             {
                 Console.WriteLine(item);
             }
-          // Console.Write("\nOption: ");
         }
         public static void ShowMenuOrder()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            string[] menuOrder = new string[] { "| 1 | Create", "| 2 | Update", "| 3 | Delete", "| 4 | Search", "| 5 | Close", "| 6 | Back"};
+            string[] menuOrder = new string[] { "| 1 | Create", "| 2 | Update", "| 3 | Delete", "| 4 | Search", "| 5 | Close Order", "| 6 | Back"};
             DateTime data = DateTime.Now;
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine($"Menu Order - {data}");

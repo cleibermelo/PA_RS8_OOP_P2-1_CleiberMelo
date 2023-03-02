@@ -20,7 +20,6 @@ namespace RSGymPT.Classes
             #region ReadCredentions
             public void ReadCredentions()
             {
-                //User user = new User();
                 User[] userdata = InMemoryData.Users;
                 do
                 {
@@ -88,7 +87,5 @@ namespace RSGymPT.Classes
             #endregion
 
         #endregion
-
-
     }
 }

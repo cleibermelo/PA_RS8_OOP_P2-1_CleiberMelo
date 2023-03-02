@@ -12,8 +12,9 @@ namespace RSGymPT.Interfaces
         #region Properties
         int OrderId { get; set; }
         int IdUser { get; set; }
-        //string CodPT { get; set; }
         DateTime StartDate { get; set; }
+        DateTime StartHour { get; set; }
+        DateTime FinishedDate { get; set; }
         string Status { get; set; }
         #endregion
 

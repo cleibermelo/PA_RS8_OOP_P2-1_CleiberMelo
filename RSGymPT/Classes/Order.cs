@@ -14,9 +14,9 @@ namespace RSGymPT.Classes
      #region Properties
         public int OrderId { get; set; }
         public int IdUser { get; set; }
-       // public string CodPT { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime StartHour { get; set; }
+        public DateTime FinishedDate { get; set; }
         public string Status { get; set; }
 
         #endregion
@@ -27,39 +27,22 @@ namespace RSGymPT.Classes
             OrderId = 0;
             StartDate = DateTime.MinValue;
             StartHour = DateTime.MinValue;
+            FinishedDate = DateTime.MinValue;
             IdUser = 0;
             Status = "";
         }
-        public Order(int id, string acronym, string mobile, string name, string username, string password, int orderid, int iduser, DateTime startdate, DateTime starthour, string status) : base(id, name, username, password, acronym, mobile)
+        public Order(int id, string acronym, string mobile, string name, string username, string password, int orderid, int iduser, DateTime startdate, DateTime starthour, DateTime finishedDate,  string status) : base(id, name, username, password, acronym, mobile)
         {
             OrderId = orderid;
             IdUser = iduser;
             StartDate = startdate;
             StartHour = starthour;
+            FinishedDate = finishedDate;
             Status = status;
         }
         #endregion
 
      #region Methods
-
-        #region Lixo
-        //public Order[] StorageOrder()
-        //{
-        //    User user = new User();
-        //    Personal personal = new Personal();
-        //    Order[] orderData = new Order[]
-        //    {
-        //        new Order{ Id = CreateOrderID(), IdUser = 1, CodPT = personal.Acronym, StartDate = new DateTime(2023, 3, 19, 09, 00, 00), Status = "Scheduled"},
-        //        new Order{ Id = CreateOrderID(), IdUser = 1, CodPT = personal.Acronym, StartDate = new DateTime(2023, 3, 18, 15, 00, 00), Status = "Finished" },
-        //        new Order{ Id = CreateOrderID(), IdUser = 1, CodPT = personal.Acronym, StartDate = new DateTime(2023, 3, 20, 21, 00, 00), Status = "Cancelled" },
-        //        new Order{ Id = CreateOrderID(), IdUser = 1, CodPT = personal.Acronym, StartDate = new DateTime(2023, 4, 19, 15, 00, 00), Status = "Scheduled"},
-        //        new Order{ Id = CreateOrderID(), IdUser = 2, CodPT = personal.Acronym, StartDate = new DateTime(2023, 4, 19, 09, 00, 00), Status = "Scheduled"},
-        //        new Order{ Id = CreateOrderID(), IdUser = 2, CodPT = personal.Acronym, StartDate = new DateTime(2023, 3, 19, 10, 00, 00), Status = "Scheduled"},
-        //    };
-
-        //    return orderData;
-        //}
-        #endregion
 
         #region Create Order
         public Order CreateOrder()
@@ -95,15 +78,10 @@ namespace RSGymPT.Classes
                 return orderdate;
             }
 
-            Order newOrder = new Order { OrderId = InMemoryData.Orders.Count + 1, Acronym = personal.Acronym, StartDate = orderdate.StartDate, StartHour = orderdate.StartHour };
-            //var addorderlist = InMemoryData.Orders.ToList();
-            //addorderlist.Add(newOrder);
-            //InMemoryData.Orders.Append(newOrder);
+            Order newOrder = new Order { OrderId = InMemoryData.Orders.Count + 1, Acronym = personal.Acronym, StartDate = orderdate.StartDate, StartHour = orderdate.StartHour, Status = "Scheduled", IdUser = ApplicationData.LoggedUser.Id };
             InMemoryData.Orders.Add(newOrder);
-
-            //InMemoryData.Orders.Append(newOrder);
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"\nOrder {newOrder.OrderId}, create witch success!");
+            Console.WriteLine($"\nOrder {newOrder.OrderId}, {newOrder.Status} successfully!");
             Utility.Utility.TerminateConsole();
             Utility.Utility.ShowMenuOrder();
             return newOrder;
@@ -117,30 +95,16 @@ namespace RSGymPT.Classes
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}"); ;
             Console.ResetColor();
-            //try
-            //{
-            //    Console.Write("\nOrder Number: ");
-            //    ordernumber = int.Parse(Console.ReadLine());
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("\nInvalid Format!");
-            //    Utility.Utility.TerminateConsole();
-            //    return;
-            //}
-            Console.Write("Order Number: ");
+            Console.Write("\nOrder Number: ");
             if (!int.TryParse(Console.ReadLine(), out ordernumber))
             {
                 Console.WriteLine("\nInvalid Format!");
                 Utility.Utility.TerminateConsole();
                 return;
             }
-            //bool existe = false;
-            //existe = InMemoryData.Orders.Any(x => x.OrderId == ordernumber);
 
             Order dbOrder = InMemoryData.Orders.Find(o => o.OrderId == ordernumber);
 
-           // Order dbOrder = Array.Find(InMemoryData.Orders, e => e.OrderId.Equals(ordernumber));
             if (dbOrder != null && dbOrder.Status.Equals("Scheduled"))
             {
                 try
@@ -180,7 +144,7 @@ namespace RSGymPT.Classes
                 Console.Write($"This order cannot be changed. Because it is Finished!");
                 Utility.Utility.TerminateConsole();
             }
-            else if (dbOrder != null && dbOrder.Status.Equals("Cancelled"))
+            else if (dbOrder != null && dbOrder.Status.Equals("Canceled"))
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.Write($"This order cannot be changed. Because it is Canceled!");
@@ -202,7 +166,7 @@ namespace RSGymPT.Classes
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}"); ;
             Console.ResetColor();
-            Console.Write("Order Number: ");
+            Console.Write("\nOrder Number: ");
             if (!int.TryParse(Console.ReadLine(), out ordernumber))
             {
                 Console.WriteLine("\nInvalid Format!");
@@ -210,24 +174,25 @@ namespace RSGymPT.Classes
                 return;
             }
             Order dbOrder = InMemoryData.Orders.Find(e => e.OrderId.Equals(ordernumber));
-            //Order dbOrder = Array.Find(InMemoryData.Orders, e => e.OrderId.Equals(ordernumber));
+
             if (dbOrder != null && dbOrder.Status.Equals("Scheduled"))
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                dbOrder.Status = "DELETE";
+                dbOrder.Status = "Canceled";
+                //InMemoryData.Orders.Remove(dbOrder);
                 Console.Write($"\nOperation {dbOrder.Status} completed successfully!");
                 Utility.Utility.TerminateConsole();
             }
             else if (dbOrder != null && dbOrder.Status.Equals("Finished"))
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.Write($"This order cannot be deleted. Because it is Finished!");
+                Console.Write($"This order cannot be canceled. Because it is Finished!");
                 Utility.Utility.TerminateConsole();
             }
-            else if (dbOrder != null && dbOrder.Status.Equals("Cancelled"))
+            else if (dbOrder != null && dbOrder.Status.Equals("Canceled"))
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.Write($"This order cannot be deleted. Because it is Canceled!");
+                Console.Write($"This order cannot be Canceled. Because it is Canceled!");
                 Utility.Utility.TerminateConsole();
             }
             else
@@ -243,15 +208,14 @@ namespace RSGymPT.Classes
         public override void Search()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}"); ;
+            Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}"); 
             Console.ResetColor();
             List<Order> dbOrder = InMemoryData.Orders.FindAll(e => e.IdUser.Equals(ApplicationData.LoggedUser.Id));
-            //Order[] dbOrder = Array.FindAll(InMemoryData.Orders, e => e.IdUser.Equals(ApplicationData.LoggedUser.Id));
             if (dbOrder != null)
             {
                 foreach (var item in dbOrder)
                 {
-                    Console.WriteLine($"OrderId: {item.OrderId} UserId: {item.IdUser}");
+                    Console.WriteLine($"\nOrderId: {item.OrderId} UserId: {item.IdUser} Status: {item.Status}");
                 }
                 Utility.Utility.TerminateConsole();
             }
@@ -267,31 +231,20 @@ namespace RSGymPT.Classes
             Console.WriteLine($"Id: {ApplicationData.LoggedUser.Id} User: {ApplicationData.LoggedUser.Name}"); ;
             Console.ResetColor();
 
-            Console.Write("Order Number: ");
+            Console.Write("\nOrder Number: ");
             if (!int.TryParse(Console.ReadLine(), out ordernumber))
             {
                 Console.WriteLine("\nInvalid Format!");
                 Utility.Utility.TerminateConsole();
                 return;
             }
-            //try
-            //{
-            //    Console.Write("Order Number: ");
-            //    ordernumber = int.Parse(Console.ReadLine());
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("\nInvalid Format!");
-            //    Utility.Utility.TerminateConsole();
-            //    return;
-            //}
             Order dbOrder = InMemoryData.Orders.Find(e => e.OrderId.Equals(ordernumber));
-            //Order dbOrder = Array.Find(InMemoryData.Orders, e => e.OrderId.Equals(ordernumber));
             if (dbOrder != null && dbOrder.Status.Equals("Scheduled"))
             {
-                dbOrder.Status = "FINISH";
+                dbOrder.Status = "Finished";
+                dbOrder.FinishedDate = dateclose;
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.Write($"\nOperation {dbOrder.Status} completed successfully! {dateclose}");
+                Console.Write($"\nOperation {dbOrder.Status} completed successfully! {dbOrder.FinishedDate}");
                 Utility.Utility.TerminateConsole();
             }
             else if (dbOrder != null && dbOrder.Status.Equals("Finished"))
@@ -312,13 +265,6 @@ namespace RSGymPT.Classes
                 Console.Write("\nThis order does not exist!");
                 Utility.Utility.TerminateConsole();
             }
-        }
-        #endregion
-
-        #region Generate Id
-        public int GenerateId()
-        {
-            return OrderId++;
         }
         #endregion
 
